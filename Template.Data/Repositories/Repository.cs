@@ -199,7 +199,7 @@ namespace Template.Data.Repositories
         {
             try
             {
-                return DbSet.AsNoTracking().FirstOrDefault(where);
+                return DbSet.AsNoTracking().AsNoTracking().FirstOrDefault(where);
             }
             catch (Exception)
             {
