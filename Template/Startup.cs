@@ -54,7 +54,7 @@ namespace Template
                 app.UseHsts();
             }
 
-            app.Use     SwaggerConfiguration();
+            app.UseSwaggerConfiguration();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
