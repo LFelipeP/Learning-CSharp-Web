@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Template.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Template.IoC;
+using Template.Application.AutoMapper;
+using Template.Swagger;
 
 namespace Template
 {
@@ -26,8 +28,10 @@ namespace Template
             services.AddControllersWithViews();
 
             services.AddDbContext<TemplateContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString(name: "DBTemplate")).EnableSensitiveDataLogging());
-
             NativeInjector.RegisterServices(services);
+
+            services.AddAutoMapper(typeof(AutoMapperSetup));
+            services.AddSwaggerConfigutation();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -49,6 +53,8 @@ namespace Template
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.Use     SwaggerConfiguration();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
